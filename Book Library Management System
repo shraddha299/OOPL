@@ -1,0 +1,160 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Book
+{   
+    public:
+    string title, author, publisher;
+    float price;
+    int stock;
+
+public:
+    
+     Book() 
+    {
+        title = "";
+        author = "";
+        publisher = "";
+        price = 0.0;
+        stock = 0;
+    }
+
+    void input()
+    {
+        cout << "Enter Title: ";
+        cin >> title;
+        cout << "Enter Author: ";
+        cin >> author;
+        cout << "Enter Publisher: ";
+        cin >> publisher;
+        cout << "Enter Price: ";
+        cin >> price;
+        cout << "Enter Stock: ";
+        cin >> stock;
+    }
+
+    //bool search(string t, string a)
+    //{
+    //    return (title == t && author == a);
+    //}
+
+    void display()
+    {
+        cout << "\nTitle: " << title;
+        cout << "\nAuthor: " << author;
+        cout << "\nPublisher: " << publisher;
+        cout << "\nPrice: " << price;
+        cout << "\nStock: " << stock << endl;
+    }
+
+    void Buy(int copies)
+    {
+        if (copies <= stock) 
+        {
+            cout << "Total cost = " << price * copies << endl;
+            stock -= copies;
+        }
+        else 
+        {
+            cout << "Required copies not in stock\n";
+        }
+    }
+};
+
+int main() {
+    Book books[10];  
+    int choice;
+
+    do {
+        cout << "\n----------- Book Shop Menu -------------\n";
+        cout << "1. Add Book\n";
+        cout << "2. Display All Books\n";
+        cout << "3. Search and Buy Book\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch(choice) {
+            case 1:
+                int n;
+                cout << "Enter number of Books:\n";
+                cin >> n;
+                
+                if (n < 10) 
+                {
+                    for(int i=0;i<n;i++)
+                    {
+                    cout << "\nEnter details of book " << i + 1 << ":\n";
+                    books[i].input();
+                    }
+                }
+                else 
+                {
+                    cout << "Book array full!\n";
+                }
+                 break;
+
+            case 2:
+                if (n == 0)
+                {
+                    cout << "No books available.\n";
+                } 
+                else 
+                {   
+                    cout << "----BOOK LIST-----";
+                    for (int i = 0; i < n; i++)
+                    {
+                        books[i].display();
+                    }
+                }
+                break;
+
+            case 3:
+                if (n == 0)
+                {
+                    cout << "No books available to search.\n";
+                }
+                else 
+                {
+                    string t, a;
+                    cout << "Enter title of book: ";
+                    cin >> t;
+                    cout << "Enter author of book: ";
+                    cin >> a;
+
+                    bool found = false;
+                    for (int i = 0; i < n; i++)
+                    {
+                        if (books[i].title==t && books[i].author==a) 
+                        {
+                            cout << "\nBook Found!\n";
+                            books[i].display();
+                            int copies;
+                            cout << "Enter number of copies required: ";
+                            cin >> copies;
+                            books[i].Buy(copies);
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found) 
+                    {
+                        cout << "Book not available.\n";
+                    }
+                }
+                break;
+
+            case 4:
+                cout << "Exiting program...\n";
+                break;
+
+            default:
+                cout << "Invalid choice! Try again.\n";
+        }
+
+    } while(choice != 4);
+
+    return 0;
+}
