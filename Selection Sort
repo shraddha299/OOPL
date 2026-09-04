@@ -1,0 +1,64 @@
+#include <iostream>
+using namespace std;
+
+
+template <class T>
+void selectionSort(T arr[], int n) 
+{
+    for (int i = 0; i < n - 1; i++) 
+    {
+        for (int j = i + 1; j < n; j++) 
+        {
+            if (arr[j] < arr[i]) 
+            {
+                T temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+}
+
+// Function template to print array
+template <class T>
+void display(T arr[], int n) 
+{
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+    cout << endl;
+}
+
+int main()
+{
+    int n;
+    cout << "Enter number of integers: ";
+    cin >> n;
+    
+    int a[n];
+    cout << "Enter integers: ";
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    
+    cout << "Enter number of floats: ";
+    cin >> n;
+    float b[n];
+    cout << "Enter floats: ";
+    for (int i = 0; i < n; i++)
+    {
+        cin >> b[i];
+    }
+
+    selectionSort(a, n);
+    selectionSort(b, n);
+
+
+    cout << "Sorted integer array: ";
+    display(a, n);
+
+    cout << "Sorted float array: ";
+    display(b, n);
+
+    return 0;
+}
