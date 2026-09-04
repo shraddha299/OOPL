@@ -1,0 +1,168 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Person 
+{
+    protected:
+    string name, gender;
+    int age;
+    
+    public:
+    void getData() 
+    {
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "Enter Age: ";
+        cin >> age;
+        cout << "Enter Gender: ";
+        cin >> gender;
+    }
+
+    void displayData() 
+    {
+        cout << "\nName: " << name;
+        cout << "\nAge: " << age;
+        cout << "\nGender: " << gender;
+    }
+};
+
+class Doctor : public Person 
+{
+    string specialization, department;
+    int experience;
+    float salary;
+    
+    public:
+    void getData() 
+    {
+        Person::getData();
+        cout << "Enter Specialization: ";
+        cin >> specialization;
+        cout << "Enter Department: ";
+        cin >> department;
+        cout << "Enter Experience (in years): ";
+        cin >> experience;
+        cout << "Enter Salary: ";
+        cin >> salary;
+    }
+
+    void displayData() 
+    {
+        cout << "\n--- Doctor Details ---";
+        Person::displayData();
+        cout << "\nSpecialization: " << specialization;
+        cout << "\nDepartment: " << department;
+        cout << "\nExperience: " << experience << " years";
+        cout << "\nSalary: " << salary;
+    }
+};
+
+class Nurse : public Person 
+{
+    string ward, shift;
+    float salary;
+    
+    public:
+    void getData() 
+    {
+        Person::getData();
+        cout << "Enter Ward Assigned: ";
+        cin >> ward;
+        cout << "Enter Shift Timing: ";
+        cin >> shift;
+        cout << "Enter Salary: ";
+        cin >> salary;
+    }
+
+    void displayData() 
+    {
+        cout << "\n--- Nurse Details ---";
+        Person::displayData();
+        cout << "\nWard Assigned: " << ward;
+        cout << "\nShift Timing: " << shift;
+        cout << "\nSalary: " << salary;
+    }
+};
+
+class Administrator : public Person 
+{
+    string departmentManaged;
+    int dutyHours;
+    float salary;
+    
+    public:
+    void getData() 
+    {
+        Person::getData();
+        cout << "Enter Department Managed: ";
+        cin >> departmentManaged;
+        cout << "Enter Duty Hours: ";
+        cin >> dutyHours;
+        cout << "Enter Salary: ";
+        cin >> salary;
+    }
+
+    void displayData() 
+    {
+        cout << "\n--- Administrator Details ---";
+        Person::displayData();
+        cout << "\nDepartment Managed: " << departmentManaged;
+        cout << "\nDuty Hours: " << dutyHours;
+        cout << "\nSalary: " << salary;
+    }
+};
+
+int main() 
+{
+    Doctor d;
+    Nurse n;
+    Administrator a;
+    int choice;
+
+    do 
+    {
+        cout << "\n\n----- HOSPITAL MANAGEMENT SYSTEM -------";
+        cout << "\n1. Enter Doctor Details";
+        cout << "\n2. Enter Nurse Details";
+        cout << "\n3. Enter Administrator Details";
+        cout << "\n4. Display All Details";
+        cout << "\n5. Exit";
+        cout << "\nEnter your choice: ";
+        cin >> choice;
+
+        switch (choice) 
+        {
+            case 1:
+                cout << "\nEnter Doctor Details:\n";
+                d.getData();
+                break;
+                
+            case 2:
+                cout << "\nEnter Nurse Details:\n";
+                n.getData();
+                break;
+                
+            case 3:
+                cout << "\nEnter Administrator Details:\n";
+                a.getData();
+                break;
+                
+            case 4:
+                cout << "\n\n------ Displaying Hospital Personnel Details ------";
+                d.displayData();
+                n.displayData();
+                a.displayData();
+                break;
+                
+            case 5:
+                cout << "\nExiting the program. Thank you!\n";
+                break;
+                
+            default:
+                cout << "\nInvalid choice! Please try again.\n";
+        }
+    } while (choice != 5);
+
+    return 0;
+}
