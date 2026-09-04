@@ -1,0 +1,135 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Bank
+{
+private:
+    string name;
+    int accNo;
+    float Balance;
+    string password;
+
+public:
+    void accept()
+    {
+            cout << "Enter your Name : ";
+            cin >> name;
+            cout << "Enter Account Number : ";
+            cin >> accNo;
+            cout << "Enter Initial Account Balance : ";
+            cin >> Balance;
+            cout << "Set Password : ";
+            cin >> password;
+    }
+
+    void deposite()
+    {
+        string pass;
+        cout << "Enter Correct Password :";
+        cin >> pass;
+        if (pass == password)
+        {   
+            float amount;
+            cout << "Enter Amount to Deposite : ";
+            cin >> amount;
+            if (amount > 0)
+            {
+                Balance += amount;
+                cout << "Amount Deposited Successfully \n";
+                cout << "Current Balance in Account : " << Balance << endl;
+            }
+            else
+            {
+                cout << "Not Deposited \n";
+            }
+        }
+        else
+        {
+            cout << "Invalid Password ";
+        }
+    }
+
+    void withdrawal()
+    {
+        string pass;
+        cout << "Enter Correct Password :";
+        cin >> pass;
+        if (pass == password)
+        {   
+            float amount;
+            cout << "Enter Amount to Deposite : ";
+            cin >> amount;
+            if (Balance >= amount && Balance > 0)
+            {
+                Balance -= amount;
+                cout << "Withdrawal Successful \n";
+                cout << "Balance After Withdrawal : " << Balance << endl;
+            }
+            else
+            {
+                cout << "Insufficient Amount \n";
+            }
+        }
+        else
+        {
+            cout << "Invalid Password ";
+        }
+    }
+
+    void display()
+    {
+        cout << "Depositor Name : " << name << endl;
+        cout << "Account Number : " << accNo << endl;
+        cout << "Current Balance : " << Balance << endl;
+    }
+};
+
+int main()
+{
+    Bank Ac;
+    int ch;
+
+
+    do
+    {
+        cout << "\n------- Bank Account Menu -------\n";
+        cout << "1. Accept Details \n";
+        cout << "2. Deposite Amount \n";
+        cout << "3. Withdraw Amount \n";
+        cout << "4. Display Account Details \n";
+        cout << "5. Exit \n";
+
+        cout << "Enter your Choice : ";
+        cin >> ch;
+
+        switch (ch)
+        {
+        case 1:
+           
+            Ac.accept();
+            break;
+
+        case 2:
+            Ac.deposite();
+            break;
+
+        case 3:
+            Ac.withdrawal();
+            break;
+
+        case 4:
+            Ac.display();
+            break;
+
+        case 5:
+            cout << "Exiting program! Thank you. \n";
+            break;
+
+        default:
+            cout << "Invalid choice, please try again.\n";
+        }
+    } while (ch != 5);
+
+    return 0;
+}
