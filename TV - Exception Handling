@@ -1,0 +1,70 @@
+#include <iostream>      
+using namespace std;      
+
+class Television
+{      
+private:      
+    int modelNumber;      
+    int screenSize;      
+    float price;      
+
+public:      
+    Television() 
+    {      
+        modelNumber = 0;      
+        screenSize = 0;      
+        price = 0.0;      
+    }      
+
+    void input() 
+    {      
+        cout << "Enter model number : ";      
+        cin >> modelNumber;      
+
+        cout << "Enter screen size in inches : ";      
+        cin >> screenSize;      
+
+        cout << "Enter price : ";      
+        cin >> price;      
+
+             
+        if (modelNumber > 9999 || screenSize < 12 || screenSize > 70 || price < 0 || price > 5000) 
+        {      
+            throw 1; 
+        }      
+    }      
+
+    void display() 
+    {      
+        cout << "\nTelevision Details:\n";      
+        cout << "Model Number: " << modelNumber << endl;      
+        cout << "Screen Size: " << screenSize << " inches" << endl;      
+        cout << "Price: $" << price << endl;      
+    }      
+
+    void reset() 
+    {      
+        modelNumber = 0;      
+        screenSize = 0;      
+        price = 0.0;      
+    }      
+};      
+
+int main() 
+{      
+    Television tv;      
+
+    try 
+    {      
+        tv.input();      
+    } 
+    catch (int e) 
+    {       
+        cout << "\nInvalid input! Resetting all values to zero.\n";      
+        tv.reset();      
+    }      
+
+    tv.display();      
+
+    return 0;      
+}
