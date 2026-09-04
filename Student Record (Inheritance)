@@ -1,0 +1,187 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+const int MAX = 10;
+
+class Student 
+{
+protected:
+    string name;
+    int rollno;
+    string subject;
+
+public:
+    virtual void getData() 
+    {
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "Enter Roll Number: ";
+        cin >> rollno;
+        cout << "Enter Subject: ";
+        cin >> subject;
+    }
+
+    virtual void showData() 
+    {
+        cout << "Name: " << name << "\tRoll No: " << rollno << "\tSubject: " << subject;
+    }
+
+    int getRollNo()
+    { 
+        return rollno; 
+    }
+};
+
+class Marks : public Student 
+{
+    string scode;
+    float imarks, umarks;
+
+public:
+    void getData() override 
+    {
+        Student::getData();
+        cout << "Enter Subject Code: ";
+        cin >> scode;
+        cout << "Enter Internal Marks: ";
+        cin >> imarks;
+        cout << "Enter University Marks: ";
+        cin >> umarks;
+    }
+
+    void showData() override 
+    {
+        Student::showData();
+        cout << "\tSubject Code: " << scode
+             << "\tInternal: " << imarks
+             << "\tUniversity: " << umarks << endl;
+    }
+
+    void editData() 
+    {
+        cout << "Editing record for Roll No " << rollno << endl;
+        cout << "Enter new Internal Marks: ";
+        cin >> imarks;
+        cout << "Enter new University Marks: ";
+        cin >> umarks;
+    }
+};
+
+int main() 
+{
+    Marks students[MAX];
+    int count = 0, choice, roll;
+    bool found;
+
+    do 
+    {
+        cout << "\n--- MENU ---\n";
+        cout << "1. Build Master Table\n";
+        cout << "2. List Table\n";
+        cout << "3. Insert New Entry\n";
+        cout << "4. Delete an Entry\n";
+        cout << "5. Edit an Entry\n";
+        cout << "6. Search a Record\n";
+        cout << "7. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter number of students: ";
+                cin >> count;
+                for (int i = 0; i < count; i++) 
+                {
+                    cout << "\nEnter details for student " << i + 1 << endl;
+                    students[i].getData();
+                }
+                break;
+
+            case 2:
+                cout << "\n--- Student List ---\n";
+                for (int i = 0; i < count; i++)
+                {
+                    students[i].showData();
+                }
+                break;
+
+            case 3:
+                if (count < MAX) 
+                {
+                    cout << "\nEnter details for new student:\n";
+                    students[count].getData();
+                    count++;
+                } 
+                else
+                {
+                    cout << "Table full!\n";
+                }
+                break;
+
+            case 4:
+                cout << "Enter Roll No to delete: ";
+                cin >> roll;
+                found = false;
+                for (int i = 0; i < count; i++) 
+                {
+                    if (students[i].getRollNo() == roll) 
+                    {
+                        for (int j = i; j < count - 1; j++)
+                            students[j] = students[j + 1];
+                        count--;
+                        found = true;
+                        cout << "Record deleted.\n";
+                        break;
+                    }
+                }
+                if (!found) cout << "Record not found.\n";
+                break;
+
+            case 5:
+                cout << "Enter Roll No to edit: ";
+                cin >> roll;
+                found = false;
+                for (int i = 0; i < count; i++) 
+                {
+                    if (students[i].getRollNo() == roll) 
+                    {
+                        students[i].editData();
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) 
+                {
+                    cout << "Record not found.\n";
+                }
+                break;
+
+            case 6:
+                cout << "Enter Roll No to search: ";
+                cin >> roll;
+                found = false;
+                for (int i = 0; i < count; i++) 
+                {
+                    if (students[i].getRollNo() == roll) 
+                    {
+                        students[i].showData();
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) cout << "Record not found.\n";
+                break;
+
+            case 7:
+                cout << "Exiting program...\n";
+                break;
+
+            default:
+                cout << "Invalid choice!\n";
+        }
+
+    } while (choice != 7);
+
+    return 0;
+}
